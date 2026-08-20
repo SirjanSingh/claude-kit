@@ -63,10 +63,14 @@ for (const [evt, groups] of Object.entries(s.hooks || {})) {
 if (deadHooks) changes.push(`remove ${deadHooks} dead http hook(s) pointing at 127.0.0.1:47913`);
 
 // 2. env
+//
+// Deliberately does NOT set PATH. Claude Code stores settings.json `env` values literally --
+// it does not interpolate ${PATH} -- so "C:\Program Files\nodejs;${PATH}" replaces the whole
+// PATH with two entries, one of which is the literal string "${PATH}". Verified the hard way:
+// python, git and everything else stopped resolving in tool-spawned shells. See docs/settings-fixes.md.
 const wantEnv = {
   PYTHONIOENCODING: 'utf-8',
   PYTHONUTF8: '1',
-  PATH: 'C:\\Program Files\\nodejs;${PATH}',
 };
 const envAdds = Object.entries(wantEnv).filter(([k, v]) => (s.env || {})[k] !== v);
 if (envAdds.length) {

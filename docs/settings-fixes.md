@@ -41,21 +41,43 @@ The script removes only hooks pointing at a hard-coded dead port; edit the const
 ```jsonc
 "env": {
   "PYTHONIOENCODING": "utf-8",
-  "PYTHONUTF8": "1",
-  "PATH": "C:\\Program Files\\nodejs;${PATH}"
+  "PYTHONUTF8": "1"
 }
 ```
 
 | Setting | What it stops | Measured |
 |---|---|---|
 | `PYTHONIOENCODING` + `PYTHONUTF8` | `UnicodeEncodeError` / `charmap codec can't encode` when Python writes UTF-8 to the Windows console | **98 failures** across 9 sessions, plus **358** commands carrying a manual encoding preamble |
-| `PATH` | `'node' is not recognized as an internal or external command` when npm spawns `cmd.exe` | **33 failures**, plus **69** commands manually prefixing the Node path |
 
-The point is that this belongs in config rather than in a `CLAUDE.md` rule. Both of these were
-already written as instructions in prose, and both kept recurring — prose is advice the model may
-follow, `env` applies before the command runs.
+The point is that this belongs in config rather than in a `CLAUDE.md` rule. It was already
+written as an instruction in prose and kept recurring — prose is advice the model may follow,
+`env` applies before the command runs.
 
-Adjust the Node path for your install (`(Get-Command node).Source` will tell you).
+### Do not put `PATH` in here
+
+The obvious companion fix is to prepend Node to `PATH`, since `'node' is not recognized` when npm
+spawns `cmd.exe` is a common Windows failure (**33** of them in the mined sessions). **It does not
+work, and it breaks your environment.**
+
+`settings.json` `env` values are stored **literally**. Claude Code does not interpolate `${PATH}`,
+so this:
+
+```jsonc
+"PATH": "C:\\Program Files\\nodejs;${PATH}"     // ← do not do this
+```
+
+leaves tool-spawned shells with a two-entry PATH: `C:\Program Files\nodejs` and the literal string
+`${PATH}`. Node resolves. Python, git, and everything else stop resolving. Found by doing it: the
+next command in the session died with `The term 'python' is not recognized`.
+
+Nothing persistent is damaged if you hit this — the machine's real `Path` in the registry is
+untouched, the override is per-session, and removing the key plus restarting Claude Code restores
+it. But there is no working `env`-based version of this fix. Handle the Node path in the command
+itself instead:
+
+```bash
+PATH="/c/Program Files/nodejs:$PATH" npm run dev
+```
 
 ## 3. A read-only permission allowlist — your call, not a fix
 
