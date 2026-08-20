@@ -75,7 +75,7 @@ their header comment.
 
 ## Also in here
 
-- **`docs/PROPOSED-settings-changes.md`** plus `scripts/apply-settings.js` — three
+- **`docs/settings-fixes.md`** plus `scripts/apply-settings.js` — three
   evidence-backed `settings.json` fixes, with a dry run by default. Two are pure bug fixes; the
   third widens the permission allowlist, which is deliberately left as your decision.
 
