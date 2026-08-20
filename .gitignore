@@ -1,0 +1,6 @@
+# local scratch
+*.bak-*
+*.log
+ui-shot-*.png
+__pycache__/
+.DS_Store
