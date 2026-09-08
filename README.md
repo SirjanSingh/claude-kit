@@ -49,7 +49,7 @@ Opus 5 | Ctx 34% | cassandra | ⎇ main* | 5h 24% (2h11m) 7d 41% (3d0h) | $1.23
 ```
 
 Claude Code ≥ 2.1.80 puts your real Pro/Max rate limits on the status-line payload as
-`rate_limits`. This reads them directly — no API key, no network call, no log parsing — and
+`rate_limits`. This reads them directly (no API key, no network call, no log parsing) and
 colours them green / amber / red as you approach the ceiling, with a countdown to reset.
 
 The quota segment disappears cleanly on plans that do not publish limits, on the first render of
@@ -85,7 +85,7 @@ their header comment.
 
 ## Also in here
 
-- **`docs/settings-fixes.md`** plus `scripts/apply-settings.js` — three
+- **`docs/settings-fixes.md`** plus `scripts/apply-settings.js`: three
   evidence-backed `settings.json` fixes, with a dry run by default. Two are pure bug fixes; the
   third widens the permission allowlist, which is deliberately left as your decision.
 
