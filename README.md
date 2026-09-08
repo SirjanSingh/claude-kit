@@ -1,12 +1,22 @@
 # claude-kit
 
-Skills, hooks and a status line for [Claude Code](https://claude.com/claude-code), built from
-friction that actually showed up in my own session logs rather than from a list of good ideas.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-skills%20%2B%20hooks-8A3FFC)](https://claude.com/claude-code)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/SirjanSingh/claude-kit/pulls)
 
-Every item here exists because something went wrong repeatedly. The counts in the tables below
-come from mining ~90 sessions of transcripts, and they are the reason each thing was written.
+**7 skills, 2 safety hooks and a quota-aware status line for
+[Claude Code](https://claude.com/claude-code). Every one of them was written to kill a specific
+failure that kept recurring in my own session logs.**
+
+Most kits are a list of good ideas. This one is the output of grepping ~90 sessions of
+`~/.claude/projects/**/*.jsonl` for what actually went wrong, counting it, and only then writing
+something. Each row in the tables below carries the count that justified it. If a number is not
+there, the thing does not ship.
 
 Windows-first (PowerShell 5.1 and Git Bash), but nothing here is Windows-only except where noted.
+
+**Contents:** [Install](#install) · [Status line](#the-status-line) · [Skills](#skills) ·
+[Hooks](#hooks) · [Settings fixes](#also-in-here) · [Requirements](#requirements)
 
 ---
 
@@ -80,6 +90,15 @@ their header comment.
   third widens the permission allowlist, which is deliberately left as your decision.
 
 ---
+
+## Requirements
+
+| | |
+|---|---|
+| Claude Code | any recent version; the status line's quota segment needs **≥ 2.1.80** (that is when `rate_limits` started arriving on the status-line payload) |
+| Node | for the status line and both hooks |
+| Python + Playwright | only for `ui-verify` |
+| Plan | the quota segment only renders on plans that publish limits (Pro / Max). It hides itself cleanly everywhere else. |
 
 ## Notes
 
