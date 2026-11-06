@@ -73,6 +73,14 @@ a session, and after a `/compact` until the next API call.
 | **`wrap`** | End-of-session close-out: session notes, memory, logical commits, push. | The chore that gets skipped, which is how context between sessions gets lost. |
 | **`codebase-map`** | One compact orientation doc per repo so a cold session stops re-reading the tree. | Context spent every session rediscovering entry points. |
 
+### Adapted from other projects
+
+Not written from my session logs, so no count is claimed for it.
+
+| Skill | What it does | Credit |
+|---|---|---|
+| **`brag-launch`** | Reads a project's code and turns it into a short launch video with [Hyperframes](https://hyperframes.heygen.com/): plan, storyboard, render, share copy. Run it as `/brag-launch`. | A renamed copy of [`/brag`](https://github.com/latent-spaces/brag) by Shunit Haviv Hakimi, MIT, license kept in `skills/brag-launch/LICENSE`. The bundled music is left out because its license is not documented upstream. Bring your own track or render with SFX only. Needs Hyperframes and Node. |
+
 ## Hooks
 
 Neither is wired up by the installer; both print the exact `settings.json` block to paste in
